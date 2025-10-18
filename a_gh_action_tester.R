@@ -36,4 +36,6 @@ out_logi_2_this <- deSolve::ode(
 load(file.path("check", "out_logi.RData"))
 
 stopifnot(isTRUE(all.equal(out_logi_1, out_logi_1_this)))
+print("out_logi_1 is good. passed 1/2")
 stopifnot(isTRUE(all.equal(out_logi_2, out_logi_2_this)))
+print("out_logi_2 is good. passed 2/2")
