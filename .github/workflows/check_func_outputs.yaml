@@ -1,7 +1,7 @@
 name: check-outputs
 on: push
 jobs:
-    my-job:
+    job-0-setup:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v5
@@ -13,15 +13,24 @@ jobs:
               with:
                 extra-packages: |
                   any::deSolve
-
+              
+    job-1-logi_growth:
+        needs: job-0-setup
+        steps:
             - name: Checking Logistic Growth model
               run: Rscript a_gh_action_tester.R logi_growth
-
+              
+    job-2-lv:
+        if: ${{ always() }}
+        needs: job-0-setup
+        steps:
             - name: Checking Lotka-Volterra model
-              if: success() || failure()
               run: Rscript a_gh_action_tester.R lv
 
+    job-3-drug_conc:
+        if: ${{ always() }}
+        needs: job-0-setup
+        steps:
             - name: Checking Pk Drug Concentration model
-              if: success() || failure()
               run: Rscript a_gh_action_tester.R drug_conc
 
