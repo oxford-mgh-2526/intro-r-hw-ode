@@ -18,8 +18,10 @@ jobs:
               run: Rscript a_gh_action_tester.R logi_growth
 
             - name: Checking Lotka-Volterra model
+              if: success() || failure()
               run: Rscript a_gh_action_tester.R lv
 
             - name: Checking Pk Drug Concentration model
+              if: success() || failure()
               run: Rscript a_gh_action_tester.R drug_conc
 
