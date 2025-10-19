@@ -35,3 +35,5 @@ po/*~
 rsconnect/
 
 *.Rproj
+*_answer.R
+*.DS_Store

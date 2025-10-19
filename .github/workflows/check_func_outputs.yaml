@@ -14,4 +14,12 @@ jobs:
                 extra-packages: |
                   any::deSolve
 
-            - run: Rscript a_gh_action_tester.R
+            - name: Checking Logistic Growth model
+              run: Rscript a_gh_action_tester.R logi_growth
+
+            - name: Checking Lotka-Volterra model
+              run: Rscript a_gh_action_tester.R lv
+
+            - name: Checking Pk Drug Concentration model
+              run: Rscript a_gh_action_tester.R drug_conc
+
