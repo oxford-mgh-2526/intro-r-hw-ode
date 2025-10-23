@@ -1,0 +1,13 @@
+---
+title: ''
+author: ''
+---
+
+## Task on slide 343
+
+With the function you defined in `func_drug_conc.R`, run the drug concentration
+model with `r2` taking values uniformly between 1/8 and 1/10, and plot the results.
+
+```{r}
+
+```
