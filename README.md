@@ -7,7 +7,7 @@ There are four tasks given on slides 340-343 of
 under the `func` directory. If your implementations were correct, you will see
 the green tick next to the commit you made to your branch.
 
-- Put your work for the fourth task in `b_main.Rmd`.
+- Put your work for the fourth task in `b_task_4.Rmd`.
 
 Follow the same **clone-branch-commit-push** process you practiced in previous homework
 which are given at the end of
