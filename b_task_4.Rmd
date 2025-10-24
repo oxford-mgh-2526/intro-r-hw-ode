@@ -10,11 +10,24 @@ model with `r2` taking values uniformly between 1/8 and 1/10, and plot the resul
 
 ```{r}
 source("func/func_drug_conc.R")
-r2 <- runif(1, 1/10, 1/8)
-out <- deSolve::ode(
+
+out_all <- NULL
+r2 <- seq(1/10, 1/8, 0.005)
+for (rr2 in r2) {
+    out <- deSolve::ode(
         y = c("x" = 1, "y" = 0), times = seq(1, 40, 0.01), func = func_drug_conc,
-        parms = c("r1" = 1/3, "r2" = r2), method = "euler"
+        parms = c("r1" = 1/3, "r2" = rr2), method = "euler"
     )
-    plot(x ~ time, data = out, type = "l")
-    lines(y ~ time, data = out)
+    out_all <- cbind(out_all, out)
+}
+summary(out_all)
+summary(out)
+
+plot(x ~ time, data = out, type = "l")
+
+color <- c("blue", "red", "purple", "pink", "yellow", "orange")
+
+for(i in seq_along(r2)) {
+    lines(x = out_all[, "time"], y = out_all[, i * 3], col = color[i])
+}
 ```
