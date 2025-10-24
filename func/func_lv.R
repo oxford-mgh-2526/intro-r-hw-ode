@@ -4,8 +4,14 @@
 #' dx/dt = a * x - b * x * y
 #' dy/dt = c * x * y - d * y
 #' This function is designed to work with the deSolve::ode function
+#' 
+rm(list = ls())
+
 func_lv <- function(t, state, parms) {
     # implement this function here
+  dx <- parms["a"]*state["x"] - parms["b"]*state["x"]*state["y"]
+  dy <- parms["c"]*state["x"]*state["y"]-parms["d"]*state["y"]
+  return(list(c(dx,dy)))
 }
 
 if (FALSE) {
@@ -15,5 +21,5 @@ if (FALSE) {
     )
     head(out)
     plot(out)
-    plot(out[, "x"], out[, "y"], type = "l")
+    plot(out[, "time"], out[, "x"], type = "l")
 }

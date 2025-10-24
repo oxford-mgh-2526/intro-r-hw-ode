@@ -8,6 +8,9 @@
 #' This function is designed to work with the deSolve::ode function
 func_drug_conc <- function(t, state, parms) {
     # implement the function here
+  dx <- -parms["r1"]*state["x"]
+  dy <- parms["r1"]*state["x"]-parms["r2"]*state["y"]
+  return(list(c(dx,dy)))
 }
 
 if (FALSE) {
