@@ -4,7 +4,7 @@
 #' dx/dt = a * x - b * x * y
 #' dy/dt = c * x * y - d * y
 #' This function is designed to work with the deSolve::ode function
-rm(list= ls())
+
 
 func_lv <- function(t, state, parms) {
     dx <- parms["a"] * state["x"] - (parms["b"] * state["y"] * state["x"])
