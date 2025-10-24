@@ -8,9 +8,12 @@
 #' This function is designed to work with the deSolve::ode function
 func_drug_conc <- function(t, state, parms) {
     # implement the function here
+    dx<- -parms["r1"]*state["x"]
+    dy<- parms["r1"]*state["x"]-parms["r2"]*state["y"]
+    return(list(c(dx, dy)))
 }
 
-if (FALSE) {
+if (TRUE) {
     out <- deSolve::ode(
         y = c("x" = 1, "y" = 0), times = seq(1, 40, 0.01), func = func_drug_conc,
         parms = c("r1" = 1/2, "r2" = 1/10), method = "euler"
