@@ -5,7 +5,6 @@
 #' dy/dt = c * x * y - d * y
 #' This function is designed to work with the deSolve::ode function
 #' 
-rm(list = ls())
 
 func_lv <- function(t, state, parms) {
     # implement this function here
