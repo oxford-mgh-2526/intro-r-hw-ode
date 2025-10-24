@@ -6,6 +6,9 @@
 #' This function is designed to work with the deSolve::ode function
 func_lv <- function(t, state, parms) {
     # implement this function here
+    dx = parms["a"] * state["x"] - parms["b"] * state["x"] * state["y"]
+    dy = parms["c"] * state["x"] * state["y"] - parms["d"] * state["y"] 
+    return(list(c(dx,dy)))
 }
 
 if (FALSE) {
@@ -14,6 +17,14 @@ if (FALSE) {
         parms = c("a" = 2/3, "b" = 4/3, "c" = 1, "d" = 1), method = "euler"
     )
     head(out)
-    plot(out)
-    plot(out[, "x"], out[, "y"], type = "l")
-}
+    #plot(out)
+    plot(out[, "time"], out[, "x"], type = "l",
+         ylim = c(0, 2.5),
+         xlab = "Time", ylab = "x",col="purple")
+    lines(out[, "time"], out[, "y"], type = "l",col="pink")
+    legend("topleft",
+           legend = c("prey", "predator"),
+           col = c("purple", "pink"),lty=1)
+         
+
+    }

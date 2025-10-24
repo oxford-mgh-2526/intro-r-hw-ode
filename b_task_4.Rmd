@@ -1,6 +1,7 @@
 ---
-title: ''
-author: ''
+title: 'ODE function for a two-compartment pharmacokinetic model'
+author: 'Jing Wang'
+date: "2025-10-24"
 ---
 
 ## Task on slide 343
@@ -9,5 +10,24 @@ With the function you defined in `func_drug_conc.R`, run the drug concentration
 model with `r2` taking values uniformly between 1/8 and 1/10, and plot the results.
 
 ```{r}
+rm(list = ls())
+r2range <- seq(1/10, 1/8, 0.0001)
+source(file.path("func", "func_drug_conc.R"))
 
+ out1 <- deSolve::ode(
+     y = c("x" = 1, "y" = 0), times = seq(1, 40, 0.01), func = func_drug_conc,
+     parms = c("r1" = 1/2, "r2" = 1/8), method = "euler"
+    )
+ 
+plot(x ~ time, data = out1, type = "l", col="red",
+     xlab = "Time", ylab = "Concentration")
+
+for (i in r2range) {
+   out_i <- deSolve::ode(
+      y = c("x" = 1, "y" = 0), times = seq(1, 40, 0.01), func = func_drug_conc,
+     parms = c("r1" = 1/2, "r2" = i), method = "euler")
+
+    lines(y ~ time, data = out_i,col="blue")
+        }
+            
 ```

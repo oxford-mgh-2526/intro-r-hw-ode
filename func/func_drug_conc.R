@@ -8,6 +8,9 @@
 #' This function is designed to work with the deSolve::ode function
 func_drug_conc <- function(t, state, parms) {
     # implement the function here
+    dx = -parms["r1"] * state["x"] 
+    dy = parms["r1"] * state["x"] - parms["r2"] * state["y"] 
+    return(list(c(dx,dy)))
 }
 
 if (FALSE) {
@@ -15,6 +18,34 @@ if (FALSE) {
         y = c("x" = 1, "y" = 0), times = seq(1, 40, 0.01), func = func_drug_conc,
         parms = c("r1" = 1/2, "r2" = 1/10), method = "euler"
     )
-    plot(x ~ time, data = out, type = "l")
-    lines(y ~ time, data = out)
+    plot(x ~ time, data = out, type = "l", col="red",
+         xlab = "Time", ylab = "Concentration")
+    lines(y ~ time, data = out,col="blue")
+    
+
+    out1 <- deSolve::ode(
+        y = c("x" = 1, "y" = 0), times = seq(1, 40, 0.01), func = func_drug_conc,
+        parms = c("r1" = 1/2, "r2" = 1/8), method = "euler"
+    )
+    plot(x ~ time, data = out, type = "l", col="red",
+         xlab = "Time", ylab = "Concentration")
+    
+    # out2 <- deSolve::ode(
+    #     y = c("x" = 1, "y" = 0), times = seq(1, 40, 0.01), func = func_drug_conc,
+    #     parms = c("r1" = 1/2, "r2" = 1/10), method = "euler"
+    # )
+    # plot(x ~ time, data = out, type = "l", col="red")
+    # lines(y ~ time, data = out,col="blue")
+    # lines(y ~ time, data = out2,col="blue")
+
+r2range <- seq(1/10, 1/8, 0.0001)
+
+        for (i in r2range) {
+            out_i <- deSolve::ode(
+                y = c("x" = 1, "y" = 0), times = seq(1, 40, 0.01), func = func_drug_conc,
+                parms = c("r1" = 1/2, "r2" = i), method = "euler"
+            )
+            lines(y ~ time, data = out_i,col="blue")
+        }
+            
 }
