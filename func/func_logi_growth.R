@@ -1,8 +1,18 @@
 #' ODE function for a logistic growth model
 #' This function is designed to work with the deSolve::ode function
 func_logi_growth <- function(t, state, parms) {
-    # implement this function here
+    dP <- parms["r"] * state["p"] * (1 - (state["p"]/parms["k"]))
+    return(list(c(dP)))
 }
+#I
+#initial_state1 <- c(P=0)
+
+#P
+#parameters <- c(r = 1, k = 5000)
+
+#T
+#tps <- seq(0, 100, by = 0.01) 
+
 
 if (FALSE) {
     out <- deSolve::ode(
@@ -11,3 +21,4 @@ if (FALSE) {
     )
     plot(out)
 }
+
