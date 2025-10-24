@@ -7,10 +7,14 @@
 #' dy/dt = r1 * x - r2 * y
 #' This function is designed to work with the deSolve::ode function
 func_drug_conc <- function(t, state, parms) {
-    # implement the function here
+    with(as.list(c(state, parms)), {
+        dx <- -r1 * x
+        dy <- r1 * x - r2 * y
+        
+        return(list(c(dx, dy)))
+    })
 }
-
-if (FALSE) {
+if (TRUE) {
     out <- deSolve::ode(
         y = c("x" = 1, "y" = 0), times = seq(1, 40, 0.01), func = func_drug_conc,
         parms = c("r1" = 1/2, "r2" = 1/10), method = "euler"
@@ -18,3 +22,4 @@ if (FALSE) {
     plot(x ~ time, data = out, type = "l")
     lines(y ~ time, data = out)
 }
+
