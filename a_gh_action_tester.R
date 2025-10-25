@@ -6,9 +6,9 @@ model_name <- args[1]
 
 print(paste0("Checking model:", model_name))
 
-# model_name <- "logi_growth"
-# model_name <- "lv"
-# model_name <- "drug_conc"
+ #model_name <- "logi_growth"
+#model_name <- "lv"
+ #model_name <- "drug_conc"
 
 tps <- seq(0, 50, 0.1)
 
@@ -51,4 +51,6 @@ if (run_with_answers) {
     print(head(out))
     print("passed.")
 }
+
+
 

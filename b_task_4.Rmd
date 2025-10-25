@@ -8,6 +8,17 @@ author: ''
 With the function you defined in `func_drug_conc.R`, run the drug concentration
 model with `r2` taking values uniformly between 1/8 and 1/10, and plot the results.
 
+
 ```{r}
+rm(list = ls())
+library(deSolve)
+source("func/func_drug_conc.R")
+r2 <- runif(10, min = 1/10, max = 1/8)
+out <- deSolve::ode(
+    y = c("x" = 1, "y" = 0), times = seq(1, 40, 0.01), func = func_drug_conc,
+    parms = c("r1" = 1/2, "r2" = r2), method = "euler"
+)
+plot(x ~ time, data = out, type = "l", col = "blue")
+lines(y ~ time, data = out, col = "red")
 
 ```
