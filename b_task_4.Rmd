@@ -1,13 +1,49 @@
 ---
 title: ''
-author: ''
+author: 't_chiang'
 ---
 
 ## Task on slide 343
 
 With the function you defined in `func_drug_conc.R`, run the drug concentration
-model with `r2` taking values uniformly between 1/8 and 1/10, and plot the results.
+model with **r2** taking values uniformly between 1/8 and 1/10, and plot the results.
+
+## Explanation
+1. Source the `func_drug_conc` function
+2. Create a vector (`r2_seq`) of a sequence of r2 values
+3. Create an empty vector (`out_y`) to store y output values from the dy/dt formula
+4. Use a for loop that does the following:
+    + for each loop of the ODE function
+    + use a different value of r2 from `r2_seq`
+    + to output matrices of x and y values
+    + as we only need the **y** value (because **x** remains the same), use `cbind` to stitch together the **y** column of each matrix
+    + save this to an `out_y` vector
+5. Plot all values of y using a for loop that does the following:
+    + for each value of r2 from `r2_seq`
+    + create a line in the plot for the corresponding **y** values
+
 
 ```{r}
+source(file.path("func", "func_drug_conc.R"))
+
+r2_seq <- seq(1/10, 1/8, 0.005)
+out_y <- NULL
+for (r2_this in r2_seq) {
+    out <- deSolve::ode(
+            y = c("x" = 1, "y" = 0), func = func_drug_conc,
+            times = seq(1, 40, 0.01),
+            parms = c("r1" = 1/2, "r2" = r2_this), method = "euler"
+    )
+    out_y <- cbind(out_y, out[, "y"])
+}
+# out_y
+# out[, "y"]
+
+{
+plot(x = out[, "time"], y = out[, "x"], type = "l")
+for (ii in seq_along(r2_seq)) {
+    lines(x = out[, "time"], y = out_y[, ii])
+}
+}
 
 ```
