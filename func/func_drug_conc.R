@@ -7,7 +7,11 @@
 #' dy/dt = r1 * x - r2 * y
 #' This function is designed to work with the deSolve::ode function
 func_drug_conc <- function(t, state, parms) {
-    # implement the function here
+    with(as.list(c(state, parms)), {
+        dx <- -r1 * x
+        dy <-  r1 * x - r2 * y
+        return(list(c(dx, dy)))
+    })
 }
 
 if (FALSE) {

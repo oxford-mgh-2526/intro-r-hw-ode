@@ -1,6 +1,7 @@
 ---
-title: ''
-author: ''
+title: 'Task 4, Drug Concentration, R2 Context'
+author: 'Shan Lateef'
+output: html_document
 ---
 
 ## Task on slide 343
@@ -9,5 +10,41 @@ With the function you defined in `func_drug_conc.R`, run the drug concentration
 model with `r2` taking values uniformly between 1/8 and 1/10, and plot the results.
 
 ```{r}
+library(deSolve)
+
+source("func/func_drug_conc.R")
+
+# Writing out the parameters and initial states!
+state <- c(x = 1, y = 0)
+parms_base <- c(r1 = 1/3)
+
+# Establishing the time sequence
+times <- seq(0, 40, by = 0.01)
+
+# Random generator of various r2 values uniformly between 1/8 and 1/10
+set.seed(123) #ensures you get same plot every time 
+r2_value <- runif(10, min = 1/10, max = 1/8)
+
+# Creating the plot frame
+plot(NA, xlim = c(0, 30), ylim = c(0, 1),
+     xlab = "Time", ylab = "Concentration",
+     main = "Drug Concentration vs Time")
+
+# Execute runs for each r2 value and plot findings 
+for (r2 in r2_value) {
+  parms <- c(parms_base, r2 = r2)
+  out <- ode(y = state, times = times, func = func_drug_conc,
+             parms = parms, method = "euler")
+  lines(out[, "time"], out[, "y"], col = "red", lwd = 1)
+}
+
+# Add a comparison curve, like in 343, for primary compartment (x)
+out_ref <- ode(y = state, times = times, func = func_drug_conc,
+               parms = c(parms_base, r2 = mean(r2_value)),
+               method = "euler")
+lines(out_ref[, "time"], out_ref[, "x"], col = "blue", lwd = 2)
+
+legend("topright", legend = c("Peripheral (y)", "Central (x)"),
+       col = c("red", "blue"), lty = 1, bty = "n")
 
 ```
