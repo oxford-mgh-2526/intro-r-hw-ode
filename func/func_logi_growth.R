@@ -11,7 +11,7 @@ func_logi_growth <- function(t, state, parms) {
     return(list(c(dp)))
 }
 
-if (TRUE) {
+if (FALSE) {
     out <- deSolve::ode(
         y = c("p" = 10), times = seq(1, 100, 0.1), func = func_logi_growth,
         parms = c("r" = 0.1, "k" = 1000), method = "euler"

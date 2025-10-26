@@ -6,6 +6,19 @@
 #' This function is designed to work with the deSolve::ode function
 func_lv <- function(t, state, parms) {
     # implement this function here
+    x <- state["x"]
+    y <- state["y"]
+    
+    a <- parms["a"]
+    b <- parms["b"]
+    c <- parms["c"]
+    d <- parms["d"]
+    
+    dx <- a * x - b * x * y
+    dy <- c * x * y - d * y
+    
+    return(list(c(dx, dy)))
+    
 }
 
 if (FALSE) {

@@ -8,6 +8,18 @@
 #' This function is designed to work with the deSolve::ode function
 func_drug_conc <- function(t, state, parms) {
     # implement the function here
+    
+    x <- state["x"]
+    y <- state["y"]
+    
+    r1 <- parms["r1"]
+    r2 <- parms["r2"]
+    
+    dx <- -r1 * x                # drug leaves central compartment
+    dy <-  r1 * x - r2 * y       # drug enters and leaves peripheral compartment
+    
+    return(list(c(dx, dy)))
+    
 }
 
 if (FALSE) {
