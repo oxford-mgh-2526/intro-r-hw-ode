@@ -360,7 +360,7 @@ display: none;
 <p>With the function you defined in <code>func_drug_conc.R</code>, run
 the drug concentration model with <code>r2</code> taking values
 uniformly between 1/8 and 1/10, and plot the results.</p>
-<pre class="r"><code>source(&quot;func/func_drug_conc.R&quot;)
+<pre class="r"><code>source(file.path(&quot;func&quot;, &quot;func_drug_conc.R&quot;))
 
 out_all &lt;- NULL
 r2 &lt;- seq(1/10, 1/8, 0.005)
